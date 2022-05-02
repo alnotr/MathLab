@@ -15,13 +15,7 @@ def integral(f, a, b, n, eq) :
     for i in range(n) :
         sum += f(start + i * h)
         ax.add_patch(
-            patches.Rectangle(
-                (i * h - 1, 0),
-                h,
-                f(start + i * h),
-                edgecolor = 'blue',
-                fill = True
-            ))
+            patches.Rectangle((i * h - 1, 0), h, f(start + i * h), edgecolor = 'blue', fill = True))
 
     return sum*h
 

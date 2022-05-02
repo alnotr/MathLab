@@ -1,0 +1,52 @@
+import math
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import numpy as np
+
+def f(x) :
+    return x**2
+
+#интегральная сумма
+def integral(f, a, b, n, eq) :
+    sum = 0
+    h = (b - a) / n
+    start = a + (eq / 2) * h
+
+    for i in range(n) :
+        sum += f(start + i * h)
+        ax.add_patch(
+            patches.Rectangle(
+                (i * h - 1, 0),
+                h,
+                f(start + i * h),
+                edgecolor = 'blue',
+                fill = True
+            ))
+
+    return sum*h
+
+a = -1
+b = 1
+print("f(x) = x^2; [" + str(a) + ", " + str(b) + "]")
+print("Введите n(число точек деления): ")
+n = int(input())
+print("Выберете оснащение: 0 - для левых точек, 1 - для средних, 2 - для правых")
+eq = int(input())
+
+fig, ax = plt.subplots()
+
+#график квадратичной функции
+x = np.linspace(a, b, 100)
+y_ideal = [f(a) for a in x]
+ax.plot(x, y_ideal, color = "yellow")
+
+res = integral(f, a, b, n, eq);
+
+# ось x
+ax.axhline(y = 0, color = 'k')
+# ось y
+ax.axvline(x = 0, color = 'k')
+
+plt.grid()
+print("Integral ~ " + str(round(res, 3)) + "\n(" + ("левые точки" if(eq == 0) else("центральные точки" if (eq == 1) else "правые точки")) + ", n = " + str(n) + ")")
+plt.show()
